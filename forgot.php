@@ -20,7 +20,7 @@
       <?php include './includes/nav.php' ?>
     </header>
     <main>
-      <form action="process-forgot-password.php" method="post">
+      <form id="forgot-form" action="process-forgot-password.php" method="post">
         <div>
           <label for="usernameOrEmail">Username or Email:</label>
           <input

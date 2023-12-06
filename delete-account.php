@@ -53,7 +53,7 @@ exit();
         <?php include './includes/nav.php' ?>
     </header>
     <main>
-        <form action="delete-account.php" method="post">
+        <form id="delete-account-form" action="delete-account.php" method="post">
             <fieldset>
                 <legend>Confirmation</legend>
                 <p>Are you sure you want to delete your account? This action cannot be undone.</p>

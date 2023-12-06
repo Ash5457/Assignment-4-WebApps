@@ -119,7 +119,7 @@ if (isset($_POST['submit'])) {
     <?php include './includes/nav.php' ?>
   </header>
   <main>
-    <form method="post" action="">
+    <form id="register-form" method="post" action="">
       <fieldset>
         <legend>Account Information</legend>
         <div>

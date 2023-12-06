@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       }
       ?>
       No account? You can <a href="register.php">sign up now!</a>
-      <form action="login.php" method="post" class="login">
+      <form id="login-form" action="login.php" method="post" class="login">
         <fieldset>
           <legend>Login Information</legend>
           <div>

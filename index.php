@@ -93,7 +93,7 @@ if (isset($_POST['submit'])) {
       </li>
     </ul>
     <h2>Add New Entry:</h2>
-    <form method="post" action="">
+    <form id="add-list-form" method="post" action="">
     <div>
           <label for="title">Title:</label>
           <input type="text" id="title" name="title" value="<?= $title ?>">
