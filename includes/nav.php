@@ -17,3 +17,14 @@
         <li><a href="./search.php"><i class="fa-solid fa-magnifying-glass"></i></a></li>
     </ul>
 </nav>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div id="modal-body">
+      <!-- Content will be loaded here -->
+    </div>
+  </div>
+</div>
