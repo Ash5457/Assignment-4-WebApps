@@ -50,7 +50,7 @@ if (isset($_POST['submit'])) {
     $title= htmlspecialchars($title);
     $description= htmlspecialchars($description);
     $details= htmlspecialchars($details);
-
+/*
  if (strlen($title) == 0) {
     $errors['title'] = true;
   }
@@ -140,7 +140,7 @@ if (isset($_POST['submit'])) {
         move_uploaded_file($_FILES['proof']['tmp_name'], $newname);
       }
   }
-}
+}*/
     // If no errors, update database
     if (count($errors) === 0) {
 
@@ -220,7 +220,7 @@ if (isset($_POST['submit'])) {
         </div>
         <span class="error <?= !isset($errors['status']) ? 'hidden' : '' ?>">Please Choose List Status.</span>
       </fieldset>
-
+      
       <fieldset>
         <legend>Validation</legend>
         <div>

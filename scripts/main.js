@@ -5,6 +5,71 @@ const checkEmail = str => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str);
 
 // validation.js content
 document.addEventListener('DOMContentLoaded', function () {
+
+  // Edit item form validation
+  const editItemForm = document.getElementById('edit-form');
+  if (editItemForm) {
+    // input and error declaration
+    const titleInput = document.getElementById('title');
+    const titleError = titleInput.nextElementSibling;
+
+    const descInput = document.getElementById('description');
+    const descError = descInput.nextElementSibling;
+
+    const statusButtons = Array.from(document.getElementsByName('status'));
+    const statusError = statusButtons[2].closest('div').nextElementSibling;
+
+    const detailsInput = document.getElementById('details');
+    const detailsError = detailsInput.nextElementSibling;
+
+    const proofInput = document.getElementById('proof');
+    const proofError = proofInput.nextElementSibling;
+
+    editItemForm.addEventListener("submit", (ev) => {
+      let errors = false;
+      // if validation fails prevent form submission
+
+      if (titleInput.value !== "") {
+        titleError.classList.add('hidden');
+      } else {
+        titleError.classList.remove('hidden');
+        errors = true;
+      }
+
+      if (descInput.value !== "") {
+        descError.classList.add('hidden');
+      } else {
+        descError.classList.remove('hidden');
+        errors = true;
+      }
+
+      if (statusButtons.some(button => button.checked)) {
+        statusError.classList.add('hidden');
+      } else {
+        statusError.classList.remove('hidden');
+        errors = true;
+      }
+
+      if (detailsInput.value !== "") {
+        detailsError.classList.add('hidden');
+      } else {
+        detailsError.classList.remove('hidden');
+        errors = true;
+      }
+
+      if (proofInput.files.length != 0) {
+        proofError.classList.add('hidden');
+      } else {
+        proofError.classList.remove('hidden');
+        errors = true;
+      }
+
+        // IF THERE ARE ERRORS, PREVENT FORM SUBMISSION
+        if (errors)
+        ev.preventDefault();
+    });
+
+
   // Register form validation
   const registerForm = document.getElementById('register-form');
   if (registerForm) {
@@ -102,25 +167,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /*
-  // Edit item form validation
-  const editItemForm = document.getElementById('edit-item-form');
-  if (editItemForm) {
-    editItemForm.addEventListener('submit', function (event) {
-      // Perform validation checks here
-      // If validation fails, prevent form submission with event.preventDefault()
-      // Example validation check
-      const title = document.getElementById('title').value;
-      if (!title) {
-        console.log('Title is required'); // Replace with proper error handling
-        event.preventDefault();
-      }
-        // IF THERE ARE ERRORS, PREVENT FORM SUBMISSION
-        if (errors)
-        ev.preventDefault();
-    });
   }
-
+  /*
   // Confirmation dialog for delete account
   const deleteAccountForm = document.getElementById('delete-account-form');
   if (deleteAccountForm) {
