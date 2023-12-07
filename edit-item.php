@@ -193,12 +193,12 @@ if (isset($_POST['submit'])) {
         <div>
           <label for="title">Title:</label>
           <input type="text" id="title" name="title" value="<?php echo $formdata["title"]; ?>">
-          <span class="error <?= !isset($errors['title']) ? 'hidden' : '' ?>">></span>
+          <span class="error <?= !isset($errors['title']) ? 'hidden' : '' ?>">Please choose a Title</span>
         </div>
         <div>
         <label for="description">Description:</label>
           <textarea id="description" name="description" value="<?= $description ?>"><?php echo $formdata["description"]; ?></textarea>
-          <span class="error <?= !isset($errors['description']) ? 'hidden' : '' ?>"></span>
+          <span class="error <?= !isset($errors['description']) ? 'hidden' : '' ?>">Please choose a Description</span>
         </div>
       </fieldset>
       <fieldset>
