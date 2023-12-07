@@ -83,12 +83,62 @@ if (isset($_POST['submit'])) {
 
             foreach ($user_lists as $list) :
             ?>
-      <li><a href="view-item.php?id=<?php echo $list["list_id"]; ?>"><?= $list["title"] ?></a> 
+      <li><a id="preview" href="#view-item.php?id=<?php echo $list["list_id"]; ?>"><?= $list["title"] ?></a>
       <?php if ($list["user_id"] == $userid) { ?> 
         <a href="edit-item.php?id=<?php echo $list["list_id"]; ?>"><i class="fa-solid fa-pen-to-square"></i></a>
           <a href="delete-item.php?id=<?php echo $list["list_id"]; ?>"><i class="fa-solid fa-trash"></i></a>
         </button>
       <?php } ?>
+
+             <!-- Modal -->
+              <div class="modal fade" id="myModal" role="dialog">
+              <div class="modal-dialog">
+        
+            <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                  <fieldset>
+                    <div>
+                      <label for="title">Title:</label>
+                      <input type="text" id="title" name="title" value="<?php echo $item["title"]; ?>" readonly>
+                    </div>
+                    <div>
+                      <label for="title">Description:</label>
+                      <input type="text" id="description" name="description" value="<?php echo $item["description"]; ?>" readonly>
+                    </div>
+                    <div>
+                      <label for="rating">User Score: <?php echo $item["rating"]?></label>
+                      <input type="range" id="rating" name="rating" min="1" max="100" value="<?php echo $item["rating"]; ?>" disabled>
+                      <output for="rating"></output>
+                    </div>
+                    <div>
+                    <label for="title">Completion Date:</label>
+                      <input type="date" value="<?php echo $item["completion_date"]; ?>" disabled>
+                      </div>
+                  </fieldset>
+                  <fieldset>
+                    <legend>Description</legend>
+                    <div>
+                      <label for="details">Details:</label>
+                      <p><?php echo $item['details']; ?></p>
+                    </div>
+                    <!-- Other HTML elements using data from $item -->
+                    <div>
+                      <?php if (isset($item['image_url'])): ?>
+                        <label>Image Proof:</label>
+                        <img src="<?php echo "/~$direx[2]/www_data/" . $item['image_url']; ?>" height="300">
+                      <?php endif; ?>
+                    </div>
+                  </fieldset>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div> 
         <?php endforeach; ?>
       </li>
     </ul>
