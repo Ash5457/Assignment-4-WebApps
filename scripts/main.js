@@ -45,24 +45,18 @@ document.addEventListener('DOMContentLoaded', function () {
         errors = true;
       }
 
+      // check if there was nothing selected in the dropdown and handle appropriately
+      if (genderSelect.value != 0) {
+        genderError.classList.add('hidden');
+      } else {
+        genderError.classList.remove('hidden');
+        errors = true;
+      }
+
       if (userInput.value !== "") {
         userError.classList.add('hidden');
       } else {
         userError.classList.remove('hidden');
-        errors = true;
-      }
-
-      if (passwordInput.value !== "") {
-        passwordError.classList.add('hidden');
-      } else {
-        passwordError.classList.remove('hidden');
-        errors = true;
-      }
-
-      if (cpassInput.value !== passwordInput.value) {
-        cpassError.classList.add('hidden');
-      } else {
-        cpassError.classList.remove('hidden');
         errors = true;
       }
 
@@ -74,13 +68,34 @@ document.addEventListener('DOMContentLoaded', function () {
         errors = true;
       }
 
-      // check if there was nothing selected in the dropdown and handle appropriately
-      if (genderSelect.value != 0) {
-        genderError.classList.add('hidden');
+      if (passwordInput.value !== "") {
+        passwordError.classList.add('hidden');
       } else {
-        genderError.classList.remove('hidden');
+        passwordError.classList.remove('hidden');
         errors = true;
       }
+
+      if (cpassInput.value == passwordInput.value) {
+        cpassError.classList.add('hidden');
+      } else {
+        cpassError.classList.remove('hidden');
+        errors = true;
+      }
+
+      if (titleInput.value !== "") {
+        titleError.classList.add('hidden');
+      } else {
+        titleError.classList.remove('hidden');
+        errors = true;
+      }
+
+      if (descInput.value !== "") {
+        descError.classList.add('hidden');
+      } else {
+        descError.classList.remove('hidden');
+        errors = true;
+      }
+
         // IF THERE ARE ERRORS, PREVENT FORM SUBMISSION
         if (errors)
         ev.preventDefault();
