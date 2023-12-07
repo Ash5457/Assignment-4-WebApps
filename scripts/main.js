@@ -1,21 +1,93 @@
+"use strict";
+
+// constant fucntion to verify emails.
+const checkEmail = str => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str);
+
 // validation.js content
 document.addEventListener('DOMContentLoaded', function () {
   // Register form validation
   const registerForm = document.getElementById('register-form');
   if (registerForm) {
-    registerForm.addEventListener('submit', function (event) {
-      // Perform validation checks here
-      // If validation fails, prevent form submission with event.preventDefault()
-      // Example validation check
-      const name = document.getElementById('name').value;
-      if (!name) {
-        console.log('Name is required'); // Replace with proper error handling
-        event.preventDefault();
+
+    // input and error declaration
+    const nameInput = document.getElementById('name');
+    const nameError = nameInput.nextElementSibling;
+
+    const genderSelect = document.getElementById('gender');
+    const genderError = genderSelect.nextElementSibling;
+
+    const userInput = document.getElementById('username');
+    const userError = userInput.nextElementSibling;
+
+    const emailInput = document.getElementById('email');
+    const emailError = emailInput.nextElementSibling;
+
+    const passwordInput = document.getElementById('password');
+    const passwordError = passwordInput.nextElementSibling;
+
+    const cpassInput = document.getElementById('confirm_password');
+    const cpassError = cpassInput.nextElementSibling;
+
+    const titleInput = document.getElementById('title');
+    const titleError = titleInput.nextElementSibling;
+
+    const descInput = document.getElementById('description');
+    const descError = descInput.nextElementSibling;
+
+    registerForm.addEventListener("submit", (ev) => {
+      let errors = false;
+      // If validation fails, prevent form submission with ev.preventDefault()
+
+      if (nameInput.value !== "") {
+        nameError.classList.add('hidden');
+      } else {
+        nameError.classList.remove('hidden');
+        errors = true;
       }
-      // Add other validation checks as needed
+
+      if (userInput.value !== "") {
+        userError.classList.add('hidden');
+      } else {
+        userError.classList.remove('hidden');
+        errors = true;
+      }
+
+      if (passwordInput.value !== "") {
+        passwordError.classList.add('hidden');
+      } else {
+        passwordError.classList.remove('hidden');
+        errors = true;
+      }
+
+      if (cpassInput.value !== passwordInput.value) {
+        cpassError.classList.add('hidden');
+      } else {
+        cpassError.classList.remove('hidden');
+        errors = true;
+      }
+
+      // check if email is valid and handle appropriately
+      if (checkEmail(emailInput.value)) {
+        emailError.classList.add('hidden');
+      } else {
+        emailError.classList.remove('hidden');
+        errors = true;
+      }
+
+      // check if there was nothing selected in the dropdown and handle appropriately
+      if (genderSelect.value != 0) {
+        genderError.classList.add('hidden');
+      } else {
+        genderError.classList.remove('hidden');
+        errors = true;
+      }
+        // IF THERE ARE ERRORS, PREVENT FORM SUBMISSION
+        if (errors)
+        ev.preventDefault();
     });
   }
 
+  /*
   // Edit item form validation
   const editItemForm = document.getElementById('edit-item-form');
   if (editItemForm) {
@@ -28,7 +100,9 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Title is required'); // Replace with proper error handling
         event.preventDefault();
       }
-      // Add other validation checks as needed
+        // IF THERE ARE ERRORS, PREVENT FORM SUBMISSION
+        if (errors)
+        ev.preventDefault();
     });
   }
 
@@ -115,5 +189,5 @@ listItems.forEach(function (item) {
     event.preventDefault();
     const itemId = this.getAttribute('data-item-id');
     openModal(itemId);
-  });
+  });*/
 });
