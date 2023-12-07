@@ -104,7 +104,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <div>
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
+            <input type="checkbox" id="showPassword" onclick="Toggle()"> <!-- Use the provided function to toggle password visibility -->
+            <label for="showPassword">Show Password</label>
           </div>
+          <script>function Toggle() {
+    let temp = document.getElementById("password");
+  
+    if (temp.type === "password") {
+      temp.type = "text";
+    } else {
+      temp.type = "password";
+    }
+  }
+  </script>
 
           <div>
             <label for="remember_me">Remember me:</label>

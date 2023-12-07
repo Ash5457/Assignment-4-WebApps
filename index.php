@@ -92,6 +92,7 @@ if (isset($_POST['submit'])) {
         <?php endforeach; ?>
       </li>
     </ul>
+    <button id="copyLinkBtn">Copy Public List Link</button>
     <h2>Add New Entry:</h2>
     <form id="add-list-form" method="post" action="">
     <div>
