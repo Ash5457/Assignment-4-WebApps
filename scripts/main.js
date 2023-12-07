@@ -166,9 +166,56 @@ document.addEventListener('DOMContentLoaded', function () {
         ev.preventDefault();
     });
   }
+<<<<<<< HEAD
+ 
+  }
+   const copyLinkBtn = document.getElementById('copyLinkBtn');
+
+  if (copyLinkBtn) {
+    copyLinkBtn.addEventListener('click', function () {
+      const listItem = this.closest('li');
+      const listLink = listItem.querySelector('a');
+      const publicListLink = window.location.origin + '/view-item.php?id=' + encodeURIComponent(list_id); // Replace listId with the actual list ID
+      copyToClipboard(publicListLink);
+      alert('Public list link copied to clipboard!');
+    });
+  }
+
+  function copyToClipboard(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+  }
+
+
+  function Toggle() {
+    let temp = document.getElementById("password");
+  
+    if (temp.type === "password") {
+      temp.type = "text";
+    } else {
+      temp.type = "password";
+    }
+  }
+
+  /*
+  // Confirmation dialog for delete account
+  const deleteAccountForm = document.getElementById('delete-account-form');
+  if (deleteAccountForm) {
+    deleteAccountForm.addEventListener('submit', function (event) {
+      if (!confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+        event.preventDefault();
+      }
+    });
+  }
+=======
 
     // Get the modal
     var modal = document.getElementById("myModal");
+>>>>>>> 0a16f44dfc7aecaddd1dfb3bc1fdd1ae80bc4af2
 
     // Get the button that opens the modal
     var listLink = document.getElementById("preview");
@@ -208,4 +255,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   }
+<<<<<<< HEAD
+}
+
+// Add event listeners to list items to open them in a modal window
+const listItems = document.querySelectorAll('.list-item-link');
+listItems.forEach(function (item) {
+  item.addEventListener('click', function (event) {
+    event.preventDefault();
+    const itemId = this.getAttribute('data-item-id');
+    openModal(itemId);
+  });*/
 });
+=======
+});
+>>>>>>> 0a16f44dfc7aecaddd1dfb3bc1fdd1ae80bc4af2
