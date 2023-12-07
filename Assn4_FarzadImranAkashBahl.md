@@ -45,70 +45,6 @@ const checkEmail = str => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str);
 // validation.js content
 document.addEventListener('DOMContentLoaded', function () {
 
-  // Edit item form validation
-  const editItemForm = document.getElementById('edit-form');
-  if (editItemForm) {
-    // input and error declaration
-    const titleInput = document.getElementById('title');
-    const titleError = titleInput.nextElementSibling;
-
-    const descInput = document.getElementById('description');
-    const descError = descInput.nextElementSibling;
-
-    const statusButtons = Array.from(document.getElementsByName('status'));
-    const statusError = statusButtons[2].closest('div').nextElementSibling;
-
-    const detailsInput = document.getElementById('details');
-    const detailsError = detailsInput.nextElementSibling;
-
-    const proofInput = document.getElementById('proof');
-    const proofError = proofInput.nextElementSibling;
-
-    editItemForm.addEventListener("submit", (ev) => {
-      let errors = false;
-      // if validation fails prevent form submission
-
-      if (titleInput.value !== "") {
-        titleError.classList.add('hidden');
-      } else {
-        titleError.classList.remove('hidden');
-        errors = true;
-      }
-
-      if (descInput.value !== "") {
-        descError.classList.add('hidden');
-      } else {
-        descError.classList.remove('hidden');
-        errors = true;
-      }
-
-      if (statusButtons.some(button => button.checked)) {
-        statusError.classList.add('hidden');
-      } else {
-        statusError.classList.remove('hidden');
-        errors = true;
-      }
-
-      if (detailsInput.value !== "") {
-        detailsError.classList.add('hidden');
-      } else {
-        detailsError.classList.remove('hidden');
-        errors = true;
-      }
-
-      if (proofInput.files.length != 0) {
-        proofError.classList.add('hidden');
-      } else {
-        proofError.classList.remove('hidden');
-        errors = true;
-      }
-
-        // IF THERE ARE ERRORS, PREVENT FORM SUBMISSION
-        if (errors)
-        ev.preventDefault();
-    });
-
-
   // Register form validation
   const registerForm = document.getElementById('register-form');
   if (registerForm) {
@@ -205,7 +141,74 @@ document.addEventListener('DOMContentLoaded', function () {
         ev.preventDefault();
     });
   }
+});
 
+
+// validation.js content
+document.addEventListener('DOMContentLoaded', function () {
+  // Edit item form validation
+  const editItemForm = document.getElementById('edit-form');
+  if (editItemForm) {
+    // input and error declaration
+    const titleInput = document.getElementById('title');
+    const titleError = titleInput.nextElementSibling;
+
+    const descInput = document.getElementById('description');
+    const descError = descInput.nextElementSibling;
+
+    const statusButtons = Array.from(document.getElementsByName('status'));
+    const statusError = statusButtons[2].closest('div').nextElementSibling;
+
+    const detailsInput = document.getElementById('details');
+    const detailsError = detailsInput.nextElementSibling;
+
+    const proofInput = document.getElementById('proof');
+    const proofError = proofInput.nextElementSibling;
+
+    editItemForm.addEventListener("submit", (ev) => {
+      let errors = false;
+      // if validation fails prevent form submission
+
+      if (titleInput.value !== "") {
+        titleError.classList.add('hidden');
+      } else {
+        titleError.classList.remove('hidden');
+        errors = true;
+      }
+
+      if (descInput.value !== "") {
+        descError.classList.add('hidden');
+      } else {
+        descError.classList.remove('hidden');
+        errors = true;
+      }
+
+      if (statusButtons.some(button => button.checked)) {
+        statusError.classList.add('hidden');
+      } else {
+        statusError.classList.remove('hidden');
+        errors = true;
+      }
+
+      if (detailsInput.value !== "") {
+        detailsError.classList.add('hidden');
+      } else {
+        detailsError.classList.remove('hidden');
+        errors = true;
+      }
+
+      if (proofInput.files.length != 0) {
+        proofError.classList.add('hidden');
+      } else {
+        proofError.classList.remove('hidden');
+        errors = true;
+      }
+
+        // IF THERE ARE ERRORS, PREVENT FORM SUBMISSION
+        if (errors)
+        ev.preventDefault();
+    });
+  }
     // Get the modal
     var modal = document.getElementById("myModal");
 
@@ -244,9 +247,195 @@ document.addEventListener('DOMContentLoaded', function () {
         modal.style.display = "none";
       }
     }
+    const copyLinkBtn = document.getElementById('copyLinkBtn');
 
-  }
-});
+    if (copyLinkBtn) {
+      copyLinkBtn.addEventListener('click', function () {
+        const listItem = this.closest('li');
+        const listLink = listItem.querySelector('a');
+        const publicListLink = window.location.origin + '/view-item.php?id=' + encodeURIComponent(list_id); // Replace listId with the actual list ID
+        copyToClipboard(publicListLink);
+        alert('Public list link copied to clipboard!');
+      });
+    }
+  
+    function copyToClipboard(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    }
+  
+  
+    function Toggle() {
+      let temp = document.getElementById("password");
+    
+      if (temp.type === "password") {
+        temp.type = "text";
+      } else {
+        temp.type = "password";
+      }
+    }
+
+  });
 
 ```
 
+# login.php
+```xml
+<!--PHP section-->
+<?php
+require './includes/library.php';
+session_start(); // Start the session
+
+// Check if the user is already logged in, if so, redirect to the Main Page
+if (isset($_SESSION['username'])) {
+    header("Location: index.php");
+    exit();
+}
+
+// Check if a cookie exists, if yes, pre-populate the username box
+if (isset($_COOKIE['remember_me'])) {
+    $prepopulatedUsername = $_COOKIE['remember_me'];
+} else {
+    $prepopulatedUsername = '';
+}
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $pdo = connectDB();
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+
+  // Sanitize all text inputs
+  $username= htmlspecialchars($username);
+  $password= htmlspecialchars($password);
+
+  $rememberMe = isset($_POST['remember_me']) ? $_POST['remember_me'] : false;
+
+  // Fetch user data from the database
+  $stmt = $pdo->prepare("SELECT id, password FROM 3420_assg_users WHERE username = ?");
+  $stmt->execute([$username]);
+  $userData = $stmt->fetch();
+
+  // Verify password
+  if ($userData && password_verify($password, $userData['password'])) {
+      // Password is correct, start a new session
+      session_start();
+
+      // Store user data in session variables
+      $_SESSION['username'] = $username;
+      $_SESSION['user_id'] = $userData['id'];
+
+      // Create a cookie if "remember me" is checked
+      if ($rememberMe) {
+          setcookie('remember_me', $username, time() + (86400 * 30), "/"); // 30 days
+      } else {
+          // If "remember me" is not checked, clear the cookie
+          setcookie('remember_me', '', time() - 3600, "/");
+      }
+
+      // Redirect to the Main Page
+      header("Location: index.php");
+      exit();
+  } else {
+      $error_message = "Invalid username or password";
+  }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script
+      src="https://kit.fontawesome.com/05ad49203b.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Login</title>
+    <!-- include javascript and css-->
+    <link rel="stylesheet" href="styles/main.css">
+    <script defer src="js/scripts.js"></script>
+  </head>
+  <body>
+    <header>
+      <!--This will be the main heading of the page so users know what page they're on-->
+      <h1>Login</h1>
+
+      <?php include './includes/nav.php' ?>
+    </header>
+    <main>
+    <?php
+      if (isset($error_message)) {
+          echo "<p>$error_message</p>";
+      }
+      ?>
+      No account? You can <a href="register.php">sign up now!</a>
+      <form id="login-form" action="login.php" method="post" class="login">
+        <fieldset>
+          <legend>Login Information</legend>
+          <div>
+            <label for="username">Username:</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              maxlength="32"
+              placeholder="ex. JohnDoe123"
+              required
+            >
+          </div>
+          <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <input type="checkbox" id="showPassword" onclick="Toggle()"> <!-- Use the provided function to toggle password visibility -->
+            <label for="showPassword">Show Password</label>
+          </div>
+          <script>function Toggle() {
+    let temp = document.getElementById("password");
+  
+    if (temp.type === "password") {
+      temp.type = "text";
+    } else {
+      temp.type = "password";
+    }
+  }
+  </script>
+
+          <div>
+            <label for="remember_me">Remember me:</label>
+            <input type="checkbox" id="remember_me" name="remember_me">
+          </div>
+        </fieldset>
+        <div>
+          <a href="forgot.php">Forgot Password?</a>
+        </div>
+        <input type="submit" value="Login">
+      </form>
+    </main>
+    <?php include './includes/footer.php' ?>
+  </body>
+</html>
+```
+
+## image tests
+Javascript form validation for register
+![](tests/test1.png)
+javascript was able to stop the form from submitting and display all errors upon attempting to submit an enpty form with the php validation commented out.
+
+
+Javascript form validation for edit-list item
+![](tests/test2.png)
+javascript was able to stop the form from submitting and display all errors upon attempting to submit an enpty form with the php validation commented out.
+
+Modal window for index/public list
+![](tests/test3.png)
+This feature did not work with the code we have tried, perhaps it is because we implemented the code wrong, or some issue we were unaware of.
+
+Show password
+![](tests/test4.png)
+
+By hitting the checkbox you are able to display the password you typed in, useful for people who have autofill on and can't remember their password :D

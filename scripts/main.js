@@ -6,70 +6,6 @@ const checkEmail = str => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str);
 // validation.js content
 document.addEventListener('DOMContentLoaded', function () {
 
-  // Edit item form validation
-  const editItemForm = document.getElementById('edit-form');
-  if (editItemForm) {
-    // input and error declaration
-    const titleInput = document.getElementById('title');
-    const titleError = titleInput.nextElementSibling;
-
-    const descInput = document.getElementById('description');
-    const descError = descInput.nextElementSibling;
-
-    const statusButtons = Array.from(document.getElementsByName('status'));
-    const statusError = statusButtons[2].closest('div').nextElementSibling;
-
-    const detailsInput = document.getElementById('details');
-    const detailsError = detailsInput.nextElementSibling;
-
-    const proofInput = document.getElementById('proof');
-    const proofError = proofInput.nextElementSibling;
-
-    editItemForm.addEventListener("submit", (ev) => {
-      let errors = false;
-      // if validation fails prevent form submission
-
-      if (titleInput.value !== "") {
-        titleError.classList.add('hidden');
-      } else {
-        titleError.classList.remove('hidden');
-        errors = true;
-      }
-
-      if (descInput.value !== "") {
-        descError.classList.add('hidden');
-      } else {
-        descError.classList.remove('hidden');
-        errors = true;
-      }
-
-      if (statusButtons.some(button => button.checked)) {
-        statusError.classList.add('hidden');
-      } else {
-        statusError.classList.remove('hidden');
-        errors = true;
-      }
-
-      if (detailsInput.value !== "") {
-        detailsError.classList.add('hidden');
-      } else {
-        detailsError.classList.remove('hidden');
-        errors = true;
-      }
-
-      if (proofInput.files.length != 0) {
-        proofError.classList.add('hidden');
-      } else {
-        proofError.classList.remove('hidden');
-        errors = true;
-      }
-
-        // IF THERE ARE ERRORS, PREVENT FORM SUBMISSION
-        if (errors)
-        ev.preventDefault();
-    });
-
-
   // Register form validation
   const registerForm = document.getElementById('register-form');
   if (registerForm) {
@@ -166,50 +102,76 @@ document.addEventListener('DOMContentLoaded', function () {
         ev.preventDefault();
     });
   }
- 
-  }
-   const copyLinkBtn = document.getElementById('copyLinkBtn');
-
-  if (copyLinkBtn) {
-    copyLinkBtn.addEventListener('click', function () {
-      const listItem = this.closest('li');
-      const listLink = listItem.querySelector('a');
-      const publicListLink = window.location.origin + '/view-item.php?id=' + encodeURIComponent(list_id); // Replace listId with the actual list ID
-      copyToClipboard(publicListLink);
-      alert('Public list link copied to clipboard!');
-    });
-  }
-
-  function copyToClipboard(text) {
-    const textarea = document.createElement('textarea');
-    textarea.value = text;
-    document.body.appendChild(textarea);
-    textarea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textarea);
-  }
+});
 
 
-  function Toggle() {
-    let temp = document.getElementById("password");
-  
-    if (temp.type === "password") {
-      temp.type = "text";
-    } else {
-      temp.type = "password";
-    }
-  }
+// validation.js content
+document.addEventListener('DOMContentLoaded', function () {
+  // Edit item form validation
+  const editItemForm = document.getElementById('edit-form');
+  if (editItemForm) {
+    // input and error declaration
+    const titleInput = document.getElementById('title');
+    const titleError = titleInput.nextElementSibling;
 
-  /*
-  // Confirmation dialog for delete account
-  const deleteAccountForm = document.getElementById('delete-account-form');
-  if (deleteAccountForm) {
-    deleteAccountForm.addEventListener('submit', function (event) {
-      if (!confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
-        event.preventDefault();
+    const descInput = document.getElementById('description');
+    const descError = descInput.nextElementSibling;
+
+    const statusButtons = Array.from(document.getElementsByName('status'));
+    const statusError = statusButtons[2].closest('div').nextElementSibling;
+
+    const detailsInput = document.getElementById('details');
+    const detailsError = detailsInput.nextElementSibling;
+
+    const proofInput = document.getElementById('proof');
+    const proofError = proofInput.nextElementSibling;
+
+    editItemForm.addEventListener("submit", (ev) => {
+      let errors = false;
+      // if validation fails prevent form submission
+
+      if (titleInput.value !== "") {
+        titleError.classList.add('hidden');
+      } else {
+        titleError.classList.remove('hidden');
+        errors = true;
       }
+
+      if (descInput.value !== "") {
+        descError.classList.add('hidden');
+      } else {
+        descError.classList.remove('hidden');
+        errors = true;
+      }
+
+      if (statusButtons.some(button => button.checked)) {
+        statusError.classList.add('hidden');
+      } else {
+        statusError.classList.remove('hidden');
+        errors = true;
+      }
+
+      if (detailsInput.value !== "") {
+        detailsError.classList.add('hidden');
+      } else {
+        detailsError.classList.remove('hidden');
+        errors = true;
+      }
+
+      if (proofInput.files.length != 0) {
+        proofError.classList.add('hidden');
+      } else {
+        proofError.classList.remove('hidden');
+        errors = true;
+      }
+
+        // IF THERE ARE ERRORS, PREVENT FORM SUBMISSION
+        if (errors)
+        ev.preventDefault();
     });
   }
+    // Get the modal
+    var modal = document.getElementById("myModal");
 
     // Get the button that opens the modal
     var listLink = document.getElementById("preview");
@@ -246,17 +208,36 @@ document.addEventListener('DOMContentLoaded', function () {
         modal.style.display = "none";
       }
     }
+    const copyLinkBtn = document.getElementById('copyLinkBtn');
 
+    if (copyLinkBtn) {
+      copyLinkBtn.addEventListener('click', function () {
+        const listItem = this.closest('li');
+        const listLink = listItem.querySelector('a');
+        const publicListLink = window.location.origin + '/view-item.php?id=' + encodeURIComponent(list_id); // Replace listId with the actual list ID
+        copyToClipboard(publicListLink);
+        alert('Public list link copied to clipboard!');
+      });
+    }
+  
+    function copyToClipboard(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    }
+  
+  
+    function Toggle() {
+      let temp = document.getElementById("password");
+    
+      if (temp.type === "password") {
+        temp.type = "text";
+      } else {
+        temp.type = "password";
+      }
+    }
 
-  }
-}
-
-// Add event listeners to list items to open them in a modal window
-const listItems = document.querySelectorAll('.list-item-link');
-listItems.forEach(function (item) {
-  item.addEventListener('click', function (event) {
-    event.preventDefault();
-    const itemId = this.getAttribute('data-item-id');
-    openModal(itemId);
-  });*/
-});
+  });
