@@ -166,7 +166,6 @@ document.addEventListener('DOMContentLoaded', function () {
         ev.preventDefault();
     });
   }
-<<<<<<< HEAD
  
   }
    const copyLinkBtn = document.getElementById('copyLinkBtn');
@@ -211,11 +210,6 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
-=======
-
-    // Get the modal
-    var modal = document.getElementById("myModal");
->>>>>>> 0a16f44dfc7aecaddd1dfb3bc1fdd1ae80bc4af2
 
     // Get the button that opens the modal
     var listLink = document.getElementById("preview");
@@ -255,7 +249,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   }
-<<<<<<< HEAD
 }
 
 // Add event listeners to list items to open them in a modal window
@@ -267,6 +260,3 @@ listItems.forEach(function (item) {
     openModal(itemId);
   });*/
 });
-=======
-});
->>>>>>> 0a16f44dfc7aecaddd1dfb3bc1fdd1ae80bc4af2
