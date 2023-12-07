@@ -178,7 +178,7 @@ if (isset($_POST['submit'])) {
     <title>Edit Item</title>
     <!-- include javascript and css-->
     <link rel="stylesheet" href="styles/main.css">
-    <script defer src="js/scripts.js"></script>
+    <script defer src="./scripts/main.js"></script>
   </head>
   <body>
     <header>
